@@ -280,7 +280,7 @@ app.get('/health', async (req, res) => {
 
 app.use((req, res) => res.status(404).json({ error: 'Не найдено', path: req.path }));
 
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   logger.error({ err: { message: err.message, stack: err.stack }, reqId: req.id }, 'request failed');
   if (err.message === 'Недопустимый тип файла') return res.status(400).json({ error: err.message, reqId: req.id });
   if (err.code === 'LIMIT_FILE_SIZE') return res.status(400).json({ error: 'Файл слишком большой (макс. 5 МБ)', reqId: req.id });
