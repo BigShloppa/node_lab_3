@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Заметки — Lab 3 (Auth)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<div id="view-auth" class="auth-wrap">
+  <div class="auth-card">
+    <h1>📝 Notes</h1>
+    <form id="form-login" class="auth-form">
+      <h2>Вход</h2>
+      <label>Email <input type="email" name="email" required></label>
+      <label>Пароль <input type="password" name="password" required minlength="8"></label>
+      <button type="submit">Войти</button>
+      <div class="auth-links">
+        <a href="#" data-goto="register">Регистрация</a>
+        <a href="#" data-goto="forgot">Забыли пароль?</a>
+      </div>
+    </form>
+    <form id="form-register" class="auth-form" hidden>
+      <h2>Регистрация</h2>
+      <label>Email <input type="email" name="email" required></label>
+      <label>Пароль (8+ симв., буквы и цифры) <input type="password" name="password" required minlength="8"></label>
+      <button type="submit">Создать аккаунт</button>
+      <div class="auth-links"><a href="#" data-goto="login">← Назад ко входу</a></div>
+    </form>
+    <form id="form-forgot" class="auth-form" hidden>
+      <h2>Восстановление пароля</h2>
+      <label>Email <input type="email" name="email" required></label>
+      <button type="submit">Отправить ссылку</button>
+      <div class="auth-links"><a href="#" data-goto="login">← Назад ко входу</a></div>
+    </form>
+    <form id="form-reset" class="auth-form" hidden>
+      <h2>Новый пароль</h2>
+      <label>Новый пароль <input type="password" name="password" required minlength="8"></label>
+      <button type="submit">Сменить пароль</button>
+    </form>
+  </div>
+</div>
+
+<div id="view-app" hidden>
+  <header>
+    <div class="brand">📝 Notes</div>
+    <div class="user-block">
+      <span id="user-email"></span>
+      <span id="user-role" class="badge"></span>
+      <button id="btn-logout">Выйти</button>
+    </div>
+  </header>
+  <nav class="tabs">
+    <button data-tab="notes" class="active">Заметки</button>
+    <button data-tab="sessions">Сессии</button>
+    <button data-tab="users" id="btn-tab-users" hidden>Пользователи</button>
+  </nav>
+  <main>
+    <section id="tab-notes" class="panel">
+      <div class="panel-col">
+        <h2>Новая заметка</h2>
+        <form id="note-form" enctype="multipart/form-data">
+          <label>Заголовок <input type="text" name="title" required maxlength="200"></label>
+          <label>Содержимое <textarea name="content" required maxlength="5000" rows="4"></textarea></label>
+          <label>Картинка <input type="file" name="image" accept="image/*"></label>
+          <div class="row">
+            <button type="submit">Добавить</button>
+            <button type="button" id="cancel-edit" hidden>Отмена</button>
+          </div>
+        </form>
+      </div>
+      <div class="panel-col">
+        <h2>Список</h2>
+        <div id="notes-list" class="list"></div>
+      </div>
+    </section>
+    <section id="tab-sessions" class="panel" hidden>
+      <h2>Активные сессии</h2>
+      <div id="sessions-list" class="list"></div>
+    </section>
+    <section id="tab-users" class="panel" hidden>
+      <h2>Пользователи</h2>
+      <div id="users-list" class="list"></div>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

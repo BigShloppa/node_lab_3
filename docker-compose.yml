@@ -1,0 +1,39 @@
+name: notes-lab3
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: notes
+      POSTGRES_PASSWORD: notes
+      POSTGRES_DB: notes
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    environment:
+      PGHOST: db
+      PGUSER: notes
+      PGPASSWORD: notes
+      PGDATABASE: notes
+      PORT: 3000
+      LOG_LEVEL: info
+      JWT_ACCESS_SECRET: dev-access-secret-change-me
+      JWT_REFRESH_SECRET: dev-refresh-secret-change-me
+      JWT_ACCESS_TTL: 900
+      JWT_REFRESH_TTL: 604800
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: Admin123!
+      MODERATOR_EMAIL: moderator@example.com
+      MODERATOR_PASSWORD: Moder123!
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    volumes:
+      - uploads:/app/uploads
+
+volumes:
+  pgdata:
+  uploads:
